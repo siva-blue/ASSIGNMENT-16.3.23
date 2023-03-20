@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous">
+    <style>
+        body{
+            display: flex;
+            align-content: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: white;
+        }
+        div{
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            
+        }
+        input{
+            margin-right: 1%;
+        }
+        span{
+            display: flex;
+            justify-content: center;
+        }
+        p{
+            font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+            color:blue;
+        }
+        
+    </style>
+    <title>Document</title>
+</head>
+<body>
+    <script>
+        function brk(){
+            var brke=document.createElement("br");
+            return brke;
+        }
+        function paragraph(type,innerhtml){
+            var pa=document.createElement("p");
+            pa.style.fontSize="20px";
+            pa.innerHTML=type+" : "+innerhtml;
+            return pa;
+        }
+        var inp=document.createElement("input");
+        inp.setAttribute("id","dob");
+        inp.setAttribute("type","date");
+        inp.setAttribute("class","form-control");
+        inp.style.width="50%";
+        var butn=document.createElement("button");
+        butn.setAttribute("class","btn btn-danger");
+        butn.innerHTML="SHOW DATA";
+        butn.addEventListener("click",displaydata)
+        var divtag=document.createElement("div");
+        divtag.setAttribute("class","text-center");
+        var sp=document.createElement("span");
+        sp.style.width="100%";
+        sp.append(inp,butn);
+        divtag.append(sp);
+        document.body.append(divtag);
+        function displaydata(){
+            var inputs=document.getElementById("dob").value;
+            if(Date.parse(inputs)){
+                var inputdate=new Date(inputs);
+                console.log(inputdate);
+                var currentdate=new Date();
+                console.log(currentdate);
+                var millliscediff=currentdate.getTime()-inputdate.getTime();
+                console.log(millliscediff);
+                var sec=Math.floor(millliscediff/1000);
+                console.log(sec);
+                var min=Math.floor(sec/60);
+                console.log(min);
+                var hr=Math.floor(min/60);
+                console.log(hr);
+                var day=Math.floor(hr/24);
+                console.log(day);
+                var years=currentdate.getFullYear()-inputdate.getFullYear();
+                console.log(years);
+                var mon=(years*12)+currentdate.getMonth()-inputdate.getMonth();
+                console.log(mon);
+                var res_inp=paragraph("Given Input date",inputdate)
+                var res_year=paragraph("Years",years);
+                var res_mon=paragraph("Months",mon);
+                var res_day=paragraph("Days",day);
+                var res_hr=paragraph("Hours",hr);
+                var res_min=paragraph("Minutes",min);
+                var res_sec=paragraph("Seconds",sec);
+                var res_millisec=paragraph("MilliSeconds",millliscediff);
+                divtag.append(brk(),res_inp,res_year,res_mon,res_day,res_hr,res_min,res_sec,res_millisec);
+                
+                butn.removeEventListener("click",displaydata);
+            }
+        }
+    </script>
+</body>
+</html>
